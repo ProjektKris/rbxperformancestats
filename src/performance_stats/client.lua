@@ -51,6 +51,7 @@ function module:render(parent, update_frequency, format, stylesheet)
         BackgroundTransparency = 1,
         TextColor3 = Color3.new(1,1,1),
         TextStrokeTransparency = 0,
+        TextXAlignment = Enum.TextXAlignment.Left,
         Parent = screen_gui
     }
     for attribute_name, value in pairs(stylesheet) do
