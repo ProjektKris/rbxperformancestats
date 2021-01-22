@@ -16,7 +16,7 @@ function module.init()
     return newClass
 end
 function module:get_fps() -- a method of newClass
-    return 1 / self.step
+    return math.ceil(1 / self.step)
 end
 function module:get_phys_fps() return workspace:GetRealPhysicsFPS() end
 function module:get_ping()
@@ -28,7 +28,7 @@ function module:get_ping()
         remote_function:InvokeServer()
         t1 = time()
     end
-    return t1 - t0
+    return math.ceil((t1 - t0)*1000)
 end
 function module:get_server_performance()
     local server_hb, server_step
@@ -37,7 +37,7 @@ function module:get_server_performance()
     if remote_function then
         server_hb, server_step = remote_function:InvokeServer("stats")
     end
-    return 1 / server_hb, 1 / server_step
+    return math.ceil(1 / server_hb), math.ceil(1 / server_step)
 end
 function module:render(parent, update_frequency, format, stylesheet)
     local screen_gui = std.create("ScreenGui", {
@@ -60,7 +60,7 @@ function module:render(parent, update_frequency, format, stylesheet)
 
     -- process
     local subs = string.split(format or
-                                  "FPS: _-fps_ | PhysFPS: _physfps_ | Ping: _ping_ | ServerHB: _serverhb_ | ServerStep: _serverstep_",
+                                  "FPS: _fps_ | PhysFPS: _physfps_ | Ping: _ping_ | ServerHB: _serverhb_ | ServerStep: _serverstep_",
                               "_")
     local thread = coroutine.wrap(function()
         while wait(update_frequency or 1) do
