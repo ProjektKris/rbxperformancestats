@@ -9,10 +9,10 @@ function module.init()
         Parent = script.Parent.Parent,
         Name = "remote_function"
     })
-    run_service.Heartbeat(function(step)
+    run_service.Heartbeat:Connect(function(step)
         server_hb = step
     end)
-    run_service.Stepped(function(time, step)
+    run_service.Stepped:Connect(function(time, step)
         server_step = step
     end)
     remote_function.OnServerInvoke = function(client, item, ...)
