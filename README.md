@@ -13,7 +13,7 @@ local performance_stats = module.init()
 performance_stats:render(
     game.Players.LocalPlayer.PlayerGui,
     1,
-    "FPS: _-fps_ | PhysFPS: _physfps_ | Ping: _ping_ | ServerHB: _serverhb_ | ServerStep: _serverstep_",
+    "FPS: _fps_ | PhysFPS: _physfps_ | Ping: _ping_ | ServerHB: _serverhb_ | ServerStep: _serverstep_",
     {}
 )
 ```
