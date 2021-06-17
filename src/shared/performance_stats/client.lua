@@ -39,6 +39,14 @@ function module:get_server_performance()
     end
     return math.ceil(1 / server_hb), math.ceil(1 / server_step)
 end
+function module:getServerRegion()
+    local serverRegion
+    local remoteFunction = script.Parent.Parent:FindFirstChild("remote_function")
+    if remoteFunction then
+        serverRegion = remoteFunction:InvokeServer("serverRegion")
+    end
+    return serverRegion
+end
 function module:render(parent, update_frequency, format, stylesheet)
     local screen_gui = std.create("ScreenGui", {
         Name = "performance_stats",
@@ -64,6 +72,7 @@ function module:render(parent, update_frequency, format, stylesheet)
                                   "FPS: _fps_ | PhysFPS: _physfps_ | Ping: _ping_ | ServerHB: _serverhb_ | ServerStep: _serverstep_",
                               "_")
     local thread = coroutine.wrap(function()
+        local serverRegion = self:getServerRegion()
         while wait(update_frequency or 1) do
             local text = ""
             local server_hb, server_step = self:get_server_performance()
@@ -79,6 +88,8 @@ function module:render(parent, update_frequency, format, stylesheet)
                     text = text .. tostring(server_hb) .. "ms"
                 elseif sub == "serverstep" then
                     text = text .. tostring(server_step) .. "ms"
+                elseif sub == "serverregion" then
+                    text = text .. tostring(serverRegion)
                 else
                     text = text .. sub
                 end

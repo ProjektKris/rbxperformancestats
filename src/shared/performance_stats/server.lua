@@ -1,6 +1,7 @@
 -- serverside only
 local run_service = game:GetService("RunService")
 local std = require(script.Parent.std)
+local getServerRegion = require(script.Parent.getServerRegion)
 
 local module = {}
 function module.init()
@@ -20,6 +21,9 @@ function module.init()
             return true
         elseif item == "stats" then
             return server_hb, server_step
+        elseif item == "serverRegion" then
+            print(string.format("Player %s requested for serverRegion", client.Name))
+            return getServerRegion()
         end
     end
 end
