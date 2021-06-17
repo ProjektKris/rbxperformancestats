@@ -10,6 +10,7 @@ function module.init()
         Parent = script.Parent.Parent,
         Name = "remote_function"
     })
+    local serverRegion = getServerRegion()
     run_service.Heartbeat:Connect(function(step)
         server_hb = step
     end)
@@ -23,7 +24,7 @@ function module.init()
             return server_hb, server_step
         elseif item == "serverRegion" then
             print(string.format("Player %s requested for serverRegion", client.Name))
-            return getServerRegion()
+            return serverRegion
         end
     end
 end
